@@ -1,7 +1,12 @@
 'use strict';
 
 const http = require('http');
+const TelegramBot = require('node-telegram-bot-api');
+
 const token = process.env['tg_api_key'] || '892908707:AAGn1vOiAmYZH1Ddq315qoO8i_5bw30dPAk';
+const bot = new TelegramBot(token, { polling: true });
+// const webHookUrl = 'https://awesome-777-bot.herokuapp.com';
+const webHookUrl = 'https://git.heroku.com/awesome-777-bot.git';
 
 let port = process.env.PORT;
 if (port == null || port === '') {
