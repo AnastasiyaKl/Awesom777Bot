@@ -1,0 +1,25 @@
+{
+  "name": "awesome777bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnastasiyaKl/Awesome777Bot.git"
+  },
+  "author": "Anastasiya Kovalenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnastasiyaKl/Awesome777Bot/issues"
+  },
+  "homepage": "https://github.com/AnastasiyaKl/Awesome777Bot#readme",
+  "dependencies": {
+    "http": "0.0.0",
+    "firebase": "^6.2.0",
+    "firebase-admin": "^8.2.0",
+    "node-telegram-bot-api": "^0.30.0"
+  }
+}
