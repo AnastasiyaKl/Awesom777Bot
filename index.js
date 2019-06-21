@@ -13,7 +13,7 @@ if (port == null || port === '') {
     port = 8000
 }
 
-http.createServer((req, res) => {
+require('http').createServer((req, res) => {
         res.end('Welcome to Awesome777Bot!')
     })
     .listen(port);
