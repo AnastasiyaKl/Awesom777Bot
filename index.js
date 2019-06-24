@@ -1,7 +1,7 @@
 'use strict';
 
 const http = require('http');
-const TelegramBot = require('node-telegram-bot-api');
+// const TelegramBot = require('node-telegram-bot-api');
 const request = require('request');
 const firebase = require('firebase');
 
@@ -28,7 +28,7 @@ require('http').createServer((req, res) => {
     })
     .listen(port);
 
-const bot = new TelegramBot(token, { polling: true });
+// const bot = new TelegramBot(token, { polling: true });
 
 const setWebHook = () => {
     const setWebhookUrl = `https://api.telegram.org/bot${token}/setWebhook`;
@@ -47,9 +47,14 @@ const setWebHook = () => {
         })
 };
 
-// setWebHook();
+const Telegraf = require('telegraf');
+const bot = new Telegraf(token);
+bot.start((ctx) => ctx.reply('Welcome!'));
+bot.command('main', (ctx) => ctx.reply('Hello'))
 
-bot.startPolling();
+setWebHook();
+
+// bot.startPolling();
 //
 // bot.on('message', (msg) => {
 //     console.log(msg.text);
@@ -61,20 +66,25 @@ bot.startPolling();
 //     // })
 // });
 
-bot.onText('hi', function (msg, match) {
-    console.log('Welcome to Awesome777Bot');
-    const chatId = msg.chat.id;
-    bot.sendMessage(chatId, 'Welcome to Awesome777Bot');
-});
-
-bot.on('message', (msg) => {
-    const chatId = msg.chat.id;
-
-    // send a message to the chat acknowledging receipt of their message
-    bot.sendMessage(chatId, 'Received your message');
-});
-
-bot.on('polling_error', (error) => {
-    console.log(error)
-});
+// bot.onText('hi', function (msg, match) {
+//     console.log('Welcome to Awesome777Bot');
+//     const chatId = msg.chat.id;
+//     bot.sendMessage(chatId, 'Welcome to Awesome777Bot');
+// });
+//
+// bot.onText(/\/main/, (msg) => {
+//   const chatId = msg.chat.id;
+//   bot.sendMessage(chatId, 'You chose main');
+// })
+//
+// bot.on('message', (msg) => {
+//     const chatId = msg.chat.id;
+//
+//     // send a message to the chat acknowledging receipt of their message
+//     bot.sendMessage(chatId, 'Received your message');
+// });
+//
+// bot.on('polling_error', (error) => {
+//     console.log(error)
+// });
 
