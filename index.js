@@ -50,18 +50,8 @@ const setWebHook = () => {
 // setWebHook();
 
 bot.startPolling();
-//
-// bot.on('message', (msg) => {
-//     console.log(msg.text);
-//     const chatId = msg.chat.id;
-//     bot.sendMessage(chatId,'Welcome to Awesome777Bot');
-//
-//     // request.on('error', function (error) {
-//     //     console.error(error.status)
-//     // })
-// });
 
-bot.onText('hi', function (msg, match) {
+bot.onText(/hi/, (msg, match) => {
     console.log('Welcome to Awesome777Bot');
     const chatId = msg.chat.id;
     bot.sendMessage(chatId, 'Welcome to Awesome777Bot');
@@ -75,6 +65,6 @@ bot.on('message', (msg) => {
 });
 
 bot.on('polling_error', (error) => {
-    console.log(error)
+    console.log('Polling error: ', error)
 });
 
