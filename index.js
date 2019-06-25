@@ -15,7 +15,8 @@ bot.start((ctx) => {
 		'Здесь вы можете ознакомится с последними новостями' +
 		' на одну с представленых тем: политика, экономика, ' +
 		'обзество, культура. Чтобы почитать желаемый раздел, ' +
-		'просто воспользуйтесь соответсвующей коммандой. При загрузке новостей возможна загрузка в пару секунд перед отображением.');
+		'просто воспользуйтесь соответсвующей коммандой. ' +
+		'При загрузке новостей возможна загрузка в пару секунд перед отображением.');
 });
 
 //	возращает список функций
@@ -40,27 +41,26 @@ bot.command('main', (ctx) => {
 		if (response.statusCode === 200) {
 			JSDOM.fromURL('https://kp.ua/incidents/').then(dom => {
 				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
-				for (let i in data) {
+				for (let i = 0; i < 5; i++) {
 					if (data[i])
 						ctx.replyWithHTML('<a>' + data[i] + '</a>');
-					if (i > 4) break;
 				}
-			});
+			})
+				.catch((err) => console.log(err));
 		}
 	});
-
 });
 bot.command('politics', (ctx) => {
 	https.get('https://kp.ua/politics/', function (response) {
 		if (response.statusCode === 200) {
 			JSDOM.fromURL('https://kp.ua/politics/').then(dom => {
 				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
-				for (let i in data) {
+				for (let i = 0; i < 5; i++) {
 					if (data[i])
 						ctx.replyWithHTML('<a>' + data[i] + '</a>');
-					if (i > 4) break;
 				}
-			});
+			})
+				.catch((err) => console.log(err));
 		}
 	});
 });
@@ -69,10 +69,9 @@ bot.command('economics', (ctx) => {
 		if (response.statusCode === 200) {
 			JSDOM.fromURL('https://kp.ua/economics/').then(dom => {
 				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
-				for (let i in data) {
+				for (let i = 0; i < 5; i++) {
 					if (data[i])
 						ctx.replyWithHTML('<a>' + data[i] + '</a>');
-					if (i > 4) break;
 				}
 			});
 		}
@@ -83,24 +82,22 @@ bot.command('culture', (ctx) => {
 		if (response.statusCode === 200) {
 			JSDOM.fromURL('https://kp.ua/culture/').then(dom => {
 				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
-				for (let i in data) {
+				for(let i = 0; i < 5; i++) {
 					if (data[i])
 						ctx.replyWithHTML('<a>' + data[i] + '</a>');
-					if (i > 4) break;
 				}
 			});
 		}
 	});
 });
 bot.command('life', (ctx) => {
-	https.get('', function (response) {
+	https.get('https://kp.ua/life/', function (response) {
 		if (response.statusCode === 200) {
-			JSDOM.fromURL('https://kp.ua/culture/').then(dom => {
+			JSDOM.fromURL('https://kp.ua/life/').then(dom => {
 				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
-				for (let i in data) {
+				for (let i = 0; i < 5; i++) {
 					if (data[i])
 						ctx.replyWithHTML('<a>' + data[i] + '</a>');
-					if (i > 4) break;
 				}
 			});
 		}
