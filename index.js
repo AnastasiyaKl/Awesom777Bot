@@ -1,70 +1,124 @@
 'use strict';
 
-const http = require('http');
-const TelegramBot = require('node-telegram-bot-api');
+const Telegraf = require('telegraf');
+const express = require('express');
+const https = require('https');
 const request = require('request');
-const firebase = require('firebase');
+const jsdom = require('jsdom');
+const {JSDOM} = jsdom;
 
-const token = process.env['tg_api_key'] || '892908707:AAGn1vOiAmYZH1Ddq315qoO8i_5bw30dPAk';
-const webHookUrl = 'https://awesome-777-bot.herokuapp.com';
+const token = '892908707:AAFGlwEQ63t8u2MX8zlacqlZKNS661R_N98';
 
-let port = process.env.PORT;
-if (port == null || port === '') {
-    port = 8000
-}
-
-const firebaseConfig = {
-    apiKey: "AIzaSyBwobfTTiY794xNFCVavrzbOnkJMyFYq7A",
-    authDomain: "weatherbot-b16fb.firebaseapp.com",
-    databaseURL: "https://weatherbot-b16fb.firebaseio.com",
-    projectId: "weatherbot-b16fb",
-    storageBucket: "weatherbot-b16fb.appspot.com",
-    messagingSenderId: "419208145579",
-    appId: "1:419208145579:web:b38df2277851fe91"
-};
-
-require('http').createServer((req, res) => {
-        res.end('Welcome to Awesome777Bot!')
-    })
-    .listen(port);
-
-const bot = new TelegramBot(token, { polling: true });
-
-const setWebHook = () => {
-    const setWebhookUrl = `https://api.telegram.org/bot${token}/setWebhook`;
-
-    request.post({
-            url: setWebhookUrl,
-            method: 'post',
-            body: {
-                url: webHookUrl
-            },
-            json: true
-        },
-        (error, response, body) => {
-            console.log(body);
-            console.log(error);
-        })
-};
-
-// setWebHook();
-
-bot.startPolling();
-
-bot.onText(/hi/, (msg, match) => {
-    console.log('Welcome to Awesome777Bot');
-    const chatId = msg.chat.id;
-    bot.sendMessage(chatId, 'Welcome to Awesome777Bot');
+const bot = new Telegraf(token);
+bot.start((ctx) => {
+	ctx.reply('Добро пожаловать в Awesome777Bot! ' +
+		'Здесь вы можете ознакомится с последними новостями' +
+		' на одну с представленых тем: политика, экономика, ' +
+		'обзество, культура. Чтобы почитать желаемый раздел, ' +
+		'просто воспользуйтесь соответсвующей коммандой. При загрузке новостей возможна загрузка в пару секунд перед отображением.');
 });
 
-bot.on('message', (msg) => {
-    const chatId = msg.chat.id;
+//	возращает список функций
+// const getNews = (url, ctx) => {
+// 	https.get(url, function (response) {
+// 		if (response.statusCode === 200) {
+// 			JSDOM.fromURL(url).then(dom => {
+// 				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
+// 				for (let i in data) {
+// 					if (data[i])
+// 						ctx.replyWithHTML('<a>' + data[i] + '</a>');
+// 					if (i > 4) break;
+// 				}
+// 			});
+// 		}
+// 	});
+// };
 
-    // send a message to the chat acknowledging receipt of their message
-    bot.sendMessage(chatId, 'Received your message');
+
+bot.command('main', (ctx) => {
+	https.get('https://kp.ua/incidents/', function (response) {
+		if (response.statusCode === 200) {
+			JSDOM.fromURL('https://kp.ua/incidents/').then(dom => {
+				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
+				for (let i in data) {
+					if (data[i])
+						ctx.replyWithHTML('<a>' + data[i] + '</a>');
+					if (i > 4) break;
+				}
+			});
+		}
+	});
+
+});
+bot.command('politics', (ctx) => {
+	https.get('https://kp.ua/politics/', function (response) {
+		if (response.statusCode === 200) {
+			JSDOM.fromURL('https://kp.ua/politics/').then(dom => {
+				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
+				for (let i in data) {
+					if (data[i])
+						ctx.replyWithHTML('<a>' + data[i] + '</a>');
+					if (i > 4) break;
+				}
+			});
+		}
+	});
+});
+bot.command('economics', (ctx) => {
+	https.get('https://kp.ua/economics/', function (response) {
+		if (response.statusCode === 200) {
+			JSDOM.fromURL('https://kp.ua/economics/').then(dom => {
+				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
+				for (let i in data) {
+					if (data[i])
+						ctx.replyWithHTML('<a>' + data[i] + '</a>');
+					if (i > 4) break;
+				}
+			});
+		}
+	});
+});
+bot.command('culture', (ctx) => {
+	https.get('https://kp.ua/culture/', function (response) {
+		if (response.statusCode === 200) {
+			JSDOM.fromURL('https://kp.ua/culture/').then(dom => {
+				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
+				for (let i in data) {
+					if (data[i])
+						ctx.replyWithHTML('<a>' + data[i] + '</a>');
+					if (i > 4) break;
+				}
+			});
+		}
+	});
+});
+bot.command('life', (ctx) => {
+	https.get('', function (response) {
+		if (response.statusCode === 200) {
+			JSDOM.fromURL('https://kp.ua/culture/').then(dom => {
+				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
+				for (let i in data) {
+					if (data[i])
+						ctx.replyWithHTML('<a>' + data[i] + '</a>');
+					if (i > 4) break;
+				}
+			});
+		}
+	});
 });
 
-bot.on('polling_error', (error) => {
-    console.log('Polling error: ', error)
+
+bot.command('help', (ctx) => ctx.reply('Чтобы прочитать новости, воспользуйтесь одной с предствленых коман'));
+bot.launch();
+
+bot.telegram.setWebhook(`https://api.telegram.org/bot${token}/setWebhook`);
+
+const app = express();
+app.get('/', (req, res) => res.send('Hi, I`m awesome bot!'));
+
+app.use(bot.webhookCallback('/setWebhook'));
+app.listen(3000, () => {
+//  eslint-disable-next-line
+	console.log('Example app listening on port 8000!')
 });
 
