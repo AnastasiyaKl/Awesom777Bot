@@ -12,6 +12,8 @@ const bot = new Telegraf(process.env.BOT_TOKEN, {
 	}
 });
 
+// bot.startWebhook('/setWebhook', null, process.env.PORT);
+
 bot.start((ctx) => {
 	ctx.reply('Добро пожаловать в Awesome777Bot! ' +
 		'Здесь вы можете ознакомится с последними новостями' +
