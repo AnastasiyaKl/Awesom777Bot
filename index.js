@@ -31,7 +31,8 @@ const getNews = (url, ctx, header) => {
 				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
 				for (let i in data) {
 					if (data[i])
-						ctx.reply(`[${header}.\n](${data[i]})`);
+						ctx.reply(`${header}.\n
+									${data[i]}`);
 					//чтобы не выводилось больше пяти новостей по теме
 					if (i > 5) break;
 				}
