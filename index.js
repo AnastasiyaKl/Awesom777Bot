@@ -11,9 +11,6 @@ const bot = new Telegraf(process.env.BOT_TOKEN, {
 		webhookReply: true
 	}
 });
-bot.telegram.setWebhook(`https://awesome-777-bot.herokuapp.com/setWebhook`);
-
-bot.startWebhook('/setWebhook', null, process.env.PORT);
 
 bot.start((ctx) => {
 	ctx.reply('Добро пожаловать в Awesome777Bot! ' +
