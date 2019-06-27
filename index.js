@@ -1,15 +1,21 @@
 'use strict';
 
+require('dotenv');
 const Telegraf = require('telegraf');
-const express = require('express');
+// const express = require('express');
 const https = require('https');
-const request = require('request');
-const jsdom = require('jsdom');
-const {JSDOM} = jsdom;
+// const request = require('request');
+const { JSDOM }= require('jsdom');
+// const {JSDOM} = jsdom;
 
 const token = '892908707:AAFGlwEQ63t8u2MX8zlacqlZKNS661R_N98';
 
 const bot = new Telegraf(token);
+// bot.telegram.setWebhook(`https://api.telegram.org/bot${token}/setWebhook`);
+bot.telegram.setWebhook(`https://awesome-777-bot.herokuapp.com/setWebhook`);
+
+bot.startWebhook('/setWebhook', null, 5000);
+
 bot.start((ctx) => {
 	ctx.reply('Добро пожаловать в Awesome777Bot! ' +
 		'Здесь вы можете ознакомится с последними новостями' +
@@ -108,14 +114,13 @@ bot.command('life', (ctx) => {
 bot.command('help', (ctx) => ctx.reply('Чтобы прочитать новости, воспользуйтесь одной с предствленых коман'));
 bot.launch();
 
-bot.telegram.setWebhook(`https://api.telegram.org/bot${token}/setWebhook`);
 
-const app = express();
-app.get('/', (req, res) => res.send('Hi, I`m awesome bot!'));
-
-app.use(bot.webhookCallback('/setWebhook'));
-app.listen(3000, () => {
-//  eslint-disable-next-line
-	console.log('Example app listening on port 8000!')
-});
+// const app = express();
+// app.get('/', (req, res) => res.send('Hi, I`m awesome bot!'));
+//
+// app.use(bot.webhookCallback('/setWebhook'));
+// app.listen(3000, () => {
+// //  eslint-disable-next-line
+// 	console.log('Example app listening on port 8000!')
+// });
 
