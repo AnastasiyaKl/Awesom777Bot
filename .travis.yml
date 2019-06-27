@@ -3,6 +3,4 @@ sudo: false
 language: node_js
 deploy:
   provider: heroku
-  api_key:
-    secure: "2e13b40e-e2b9-433f-8442-1c10a43f2217"
   on: nastya
