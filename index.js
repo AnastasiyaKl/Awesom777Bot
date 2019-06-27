@@ -30,11 +30,11 @@ const getNews = (url, ctx, header) => {
 			JSDOM.fromURL(url).then(dom => {
 				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
 				for (let i in data) {
+					//чтобы не выводилось больше пяти новостей по теме
+					if (i > 4) break;
 					if (data[i])
 						ctx.reply(`${header}.\n
 									${data[i]}`);
-					//чтобы не выводилось больше пяти новостей по теме
-					if (i > 5) break;
 				}
 			})
 				.catch((err) => console.log(err));
