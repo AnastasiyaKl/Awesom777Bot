@@ -4,14 +4,8 @@ require('dotenv');
 const Telegraf = require('telegraf');
 const { JSDOM }= require('jsdom');
 const https = require('https');
-// const {JSDOM} = jsdom;
-// const request = require('request');
-// const express = require('express');
-
-// const token = '892908707:AAFGlwEQ63t8u2MX8zlacqlZKNS661R_N98';
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
-// bot.telegram.setWebhook(`https://api.telegram.org/bot${token}/setWebhook`);
 bot.telegram.setWebhook(`https://awesome-777-bot.herokuapp.com/setWebhook`);
 
 bot.startWebhook('/setWebhook', null, 5000);
@@ -26,35 +20,37 @@ bot.start((ctx) => {
 });
 
 //	возращает список функций
-// const getNews = (url, ctx) => {
-// 	https.get(url, function (response) {
-// 		if (response.statusCode === 200) {
-// 			JSDOM.fromURL(url).then(dom => {
-// 				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
-// 				for (let i in data) {
-// 					if (data[i])
-// 						ctx.replyWithHTML('<a>' + data[i] + '</a>');
-// 					if (i > 4) break;
-// 				}
-// 			});
-// 		}
-// 	});
-// };
-
-
-bot.command('main', (ctx) => {
-	https.get('https://kp.ua/incidents/', function (response) {
+const getNews = (url, ctx) => {
+	https.get(url, function (response) {
 		if (response.statusCode === 200) {
-			JSDOM.fromURL('https://kp.ua/incidents/').then(dom => {
+			JSDOM.fromURL(url).then(dom => {
 				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
-				for (let i = 0; i < 5; i++) {
+				for (let i in data) {
 					if (data[i])
 						ctx.replyWithHTML('<a>' + data[i] + '</a>');
+					if (i > 4) break;
 				}
 			})
 				.catch((err) => console.log(err));
 		}
 	});
+};
+
+
+bot.command('main', (ctx) => {
+	getNews('https://kp.ua/incidents/', ctx)
+	// https.get('https://kp.ua/incidents/', function (response) {
+	// 	if (response.statusCode === 200) {
+	// 		JSDOM.fromURL('https://kp.ua/incidents/').then(dom => {
+	// 			let data = dom.window.document.querySelectorAll('.other__content > dd > a');
+	// 			for (let i = 0; i < 5; i++) {
+	// 				if (data[i])
+	// 					ctx.replyWithHTML('<a>' + data[i] + '</a>');
+	// 			}
+	// 		})
+	// 			.catch((err) => console.log(err));
+	// 	}
+	// });
 });
 bot.command('politics', (ctx) => {
 	https.get('https://kp.ua/politics/', function (response) {
@@ -114,13 +110,4 @@ bot.command('life', (ctx) => {
 bot.command('help', (ctx) => ctx.reply('Чтобы прочитать новости, воспользуйтесь одной с предствленых коман'));
 bot.launch();
 
-
-// const app = express();
-// app.get('/', (req, res) => res.send('Hi, I`m awesome bot!'));
-//
-// app.use(bot.webhookCallback('/setWebhook'));
-// app.listen(3000, () => {
-// //  eslint-disable-next-line
-// 	console.log('Example app listening on port 8000!')
-// });
 
