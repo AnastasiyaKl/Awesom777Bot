@@ -27,14 +27,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="35" column="7" lean-forward="true" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="7" />
+            <state relative-caret-position="240">
+              <caret line="31" column="37" lean-forward="true" selection-start-line="31" selection-start-column="37" selection-end-line="31" selection-end-column="37" />
               <folding>
-                <element signature="e#1204#1266#0" />
-                <element signature="e#1603#2005#0" />
-                <element signature="e#2042#2408#0" />
-                <element signature="e#2443#2804#0" />
-                <element signature="e#2836#3192#0" />
+                <element signature="e#188#202#0" />
+                <element signature="e#329#691#0" />
               </folding>
             </state>
           </provider>
@@ -73,9 +70,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="425" />
+    <option name="x" value="496" />
     <option name="y" value="50" />
-    <option name="width" value="1583" />
+    <option name="width" value="1512" />
     <option name="height" value="965" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -129,19 +126,19 @@
       <updated>1561362500471</updated>
       <workItem from="1561362501606" duration="818000" />
       <workItem from="1561363526808" duration="5162000" />
-      <workItem from="1561616263118" duration="12130000" />
+      <workItem from="1561616263118" duration="13523000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18110000" />
+    <option name="totallyTimeSpent" value="19503000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="425" y="50" width="1583" height="965" extended-state="0" />
+    <frame x="820" y="50" width="1188" height="965" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="npm" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11089744" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.14849785" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -194,14 +191,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="35" column="7" lean-forward="true" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="7" />
+        <state relative-caret-position="240">
+          <caret line="31" column="37" lean-forward="true" selection-start-line="31" selection-start-column="37" selection-end-line="31" selection-end-column="37" />
           <folding>
-            <element signature="e#1204#1266#0" />
-            <element signature="e#1603#2005#0" />
-            <element signature="e#2042#2408#0" />
-            <element signature="e#2443#2804#0" />
-            <element signature="e#2836#3192#0" />
+            <element signature="e#188#202#0" />
+            <element signature="e#329#691#0" />
           </folding>
         </state>
       </provider>

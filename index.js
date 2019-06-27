@@ -5,7 +5,12 @@ const Telegraf = require('telegraf');
 const { JSDOM }= require('jsdom');
 const https = require('https');
 
-const bot = new Telegraf(process.env.BOT_TOKEN);
+const bot = new Telegraf(process.env.BOT_TOKEN, {
+	telegram: {
+		agent:  null,
+		webhookReply: true
+	}
+});
 bot.telegram.setWebhook(`https://awesome-777-bot.herokuapp.com/setWebhook`);
 
 bot.startWebhook('/setWebhook', null, 5000);
@@ -19,16 +24,16 @@ bot.start((ctx) => {
 		'При загрузке новостей возможна загрузка в пару секунд перед отображением.');
 });
 
-//	возращает список функций
-const getNews = (url, ctx) => {
+const getNews = (url, ctx, header) => {
 	https.get(url, function (response) {
 		if (response.statusCode === 200) {
 			JSDOM.fromURL(url).then(dom => {
 				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
 				for (let i in data) {
 					if (data[i])
-						ctx.replyWithHTML('<a>' + data[i] + '</a>');
-					if (i > 4) break;
+						ctx.reply(`${header}. Новость ${i}](${data[i]})`);
+					//чтобы не выводилось больше пяти новостей по теме
+					if (i > 5) break;
 				}
 			})
 				.catch((err) => console.log(err));
@@ -38,74 +43,20 @@ const getNews = (url, ctx) => {
 
 
 bot.command('main', (ctx) => {
-	getNews('https://kp.ua/incidents/', ctx)
-	// https.get('https://kp.ua/incidents/', function (response) {
-	// 	if (response.statusCode === 200) {
-	// 		JSDOM.fromURL('https://kp.ua/incidents/').then(dom => {
-	// 			let data = dom.window.document.querySelectorAll('.other__content > dd > a');
-	// 			for (let i = 0; i < 5; i++) {
-	// 				if (data[i])
-	// 					ctx.replyWithHTML('<a>' + data[i] + '</a>');
-	// 			}
-	// 		})
-	// 			.catch((err) => console.log(err));
-	// 	}
-	// });
+	getNews('https://kp.ua/incidents/', ctx, 'Главное')
 });
 bot.command('politics', (ctx) => {
-	https.get('https://kp.ua/politics/', function (response) {
-		if (response.statusCode === 200) {
-			JSDOM.fromURL('https://kp.ua/politics/').then(dom => {
-				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
-				for (let i = 0; i < 5; i++) {
-					if (data[i])
-						ctx.replyWithHTML('<a>' + data[i] + '</a>');
-				}
-			})
-				.catch((err) => console.log(err));
-		}
-	});
+	getNews('https://kp.ua/politics/', ctx, 'Политика');
 });
 bot.command('economics', (ctx) => {
-	https.get('https://kp.ua/economics/', function (response) {
-		if (response.statusCode === 200) {
-			JSDOM.fromURL('https://kp.ua/economics/').then(dom => {
-				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
-				for (let i = 0; i < 5; i++) {
-					if (data[i])
-						ctx.replyWithHTML('<a>' + data[i] + '</a>');
-				}
-			});
-		}
-	});
+	getNews('https://kp.ua/economics/', ctx, 'Економика')
 });
 bot.command('culture', (ctx) => {
-	https.get('https://kp.ua/culture/', function (response) {
-		if (response.statusCode === 200) {
-			JSDOM.fromURL('https://kp.ua/culture/').then(dom => {
-				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
-				for(let i = 0; i < 5; i++) {
-					if (data[i])
-						ctx.replyWithHTML('<a>' + data[i] + '</a>');
-				}
-			});
-		}
-	});
+	getNews('https://kp.ua/culture/', ctx, 'Светская жизнь')
 });
 bot.command('life', (ctx) => {
-	https.get('https://kp.ua/life/', function (response) {
-		if (response.statusCode === 200) {
-			JSDOM.fromURL('https://kp.ua/life/').then(dom => {
-				let data = dom.window.document.querySelectorAll('.other__content > dd > a');
-				for (let i = 0; i < 5; i++) {
-					if (data[i])
-						ctx.replyWithHTML('<a>' + data[i] + '</a>');
-				}
-			});
-		}
-	});
+	getNews('https://kp.ua/life/', ctx, 'Проишествия')
 });
-
 
 bot.command('help', (ctx) => ctx.reply('Чтобы прочитать новости, воспользуйтесь одной с предствленых коман'));
 bot.launch();
