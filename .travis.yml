@@ -1,1 +1,6 @@
 language: node_js
+deploy:
+  provider: heroku
+  api_key:
+    secure: "892908707:AAFGlwEQ63t8u2MX8zlacqlZKNS661R_N98"
+  on: nastya

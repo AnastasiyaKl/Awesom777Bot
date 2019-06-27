@@ -8,9 +8,9 @@ const https = require('https');
 const { JSDOM }= require('jsdom');
 // const {JSDOM} = jsdom;
 
-const token = '892908707:AAFGlwEQ63t8u2MX8zlacqlZKNS661R_N98';
+// const token = '892908707:AAFGlwEQ63t8u2MX8zlacqlZKNS661R_N98';
 
-const bot = new Telegraf(token);
+const bot = new Telegraf(process.env.BOT_TOKEN);
 // bot.telegram.setWebhook(`https://api.telegram.org/bot${token}/setWebhook`);
 bot.telegram.setWebhook(`https://awesome-777-bot.herokuapp.com/setWebhook`);
 
