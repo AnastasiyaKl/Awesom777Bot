@@ -1,6 +1,8 @@
+sudo: false
+
 language: node_js
 deploy:
   provider: heroku
   api_key:
-    secure: "892908707:AAFGlwEQ63t8u2MX8zlacqlZKNS661R_N98"
+    secure: "2e13b40e-e2b9-433f-8442-1c10a43f2217"
   on: nastya
